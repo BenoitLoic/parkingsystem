@@ -30,6 +30,7 @@ public class ParkingServiceTest {
     @Mock
     private static TicketDAO ticketDAO;
 
+
     @BeforeEach
     private void setUpPerTest() {
         try {
@@ -43,19 +44,32 @@ public class ParkingServiceTest {
             when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
             when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
 
-            when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
+
 
             parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         } catch (Exception e) {
             e.printStackTrace();
             throw  new RuntimeException("Failed to set up test mock objects");
         }
-    }
+    } 
 
     @Test
     public void processExitingVehicleTest(){
+        when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
         parkingService.processExitingVehicle();
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
     }
+
+//    @Test
+//    public void getNextParkingNumberIfAvailableTest (){
+//        when(parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR)).thenReturn(1);
+//        parkingService.getNextParkingNumberIfAvailable();
+//        verify(parkingSpotDAO, Mockito.atLeastOnce()).getNextAvailableSlot(ParkingType.CAR);
+//    }
+//
+//    @Test
+//    public void processIncomingVehicle() {
+//
+//    }
 
 }
