@@ -15,7 +15,9 @@ public class FareCalculatorService {
 
         float duration = (outHour - inHour) / 3600000.f;
 
-        if (duration <= 0.5) {duration = 0;}
+        if (duration <= 0.5) {
+            duration = 0;
+        }
 
         switch (ticket.getParkingSpot().getParkingType()) {
             case CAR: {
